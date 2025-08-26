@@ -39,12 +39,32 @@
             animation: fadeInBox 1s ease-out forwards, borderGlow 4s infinite linear 1s;
             opacity: 0;
         }
+        
+        /* --- NEW: Styling for the Welcome/User line --- */
+        .user-greeting {
+            font-size: 1.5em;
+            color: #555;
+            margin-bottom: 25px; /* Adds space above the main headline */
+            opacity: 0; /* Starts invisible for the animation */
+            animation: fadeInText 0.8s forwards;
+            animation-delay: 0.5s; /* Appears shortly after the box */
+        }
+        
+        .cursor {
+            display: inline-block;
+            background-color: #555;
+            width: 10px;
+            height: 1.2em;
+            animation: blink 1s infinite step-end;
+            margin-left: 5px;
+            vertical-align: bottom;
+        }
 
         .headline {
             font-size: 3.5em;
             font-weight: bold;
             height: 100px;
-            margin-bottom: 20px;
+            margin: 0; /* Adjusted margin */
         }
 
         .headline span {
@@ -60,32 +80,30 @@
         .headline span:nth-child(4) { animation-delay: 1.6s; }
 
         @keyframes fadeInText {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         @keyframes fadeInBox {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         @keyframes borderGlow {
             0%, 100% { border-color: rgba(0, 0, 0, 0.2); box-shadow: 0 0 5px rgba(0,0,0,0.1); }
             50% { border-color: rgba(0, 0, 0, 0.6); box-shadow: 0 0 20px rgba(0,0,0,0.2); }
         }
+        
+        /* --- NEW: Animation for the blinking cursor --- */
+        @keyframes blink {
+            from, to { background-color: transparent; }
+            50% { background-color: #555; }
+        }
 
         p {
             font-size: 1.2em;
             color: #444;
             letter-spacing: 2px;
+            margin-top: 20px;
         }
 
         .link-button {
@@ -108,24 +126,11 @@
             transform: translateY(-3px);
         }
 
-        /* --- MOBILE RESPONSIVE STYLES --- */
-        /* This block applies only when the screen is 768px wide or less */
         @media (max-width: 768px) {
-            .headline {
-                font-size: 2.2em; /* Make the main title smaller */
-                height: 80px; /* Adjust height to match new font size */
-            }
-
-            p {
-                font-size: 1em; /* Make the subtitle smaller */
-            }
-
-            .container {
-                /* Reduce padding to give more space on small screens */
-                padding: 30px 25px; 
-                /* Make the box slightly less wide */
-                width: 85%;
-            }
+            .user-greeting { font-size: 1.2em; }
+            .headline { font-size: 2.2em; height: 80px; }
+            p { font-size: 1em; }
+            .container { padding: 30px 25px; width: 85%; }
         }
 
     </style>
@@ -135,6 +140,9 @@
     <canvas id="matrix-canvas"></canvas>
 
     <div class="container">
+        <!-- NEW: The "Welcome, Fenrir" line with a blinking cursor -->
+        <p class="user-greeting">Welcome, Fenrir<span class="cursor"></span></p>
+
         <div class="headline">
             <span>I</span>
             <span>build</span>
@@ -173,7 +181,7 @@
         }
 
         const draw = () => {
-            ctx.fillStyle = 'rgba(245, 245, 245, 0.05)';
+            ctx.fillStyle = 'rgba(245, 245, 250, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             ctx.fillStyle = '#000';
