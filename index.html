@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fenrir's Digital Hub</title>
+    <style>
+        /* This is our CSS for styling */
+        body {
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+            font-family: 'Consolas', 'Monaco', monospace; /* A more techy font */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            overflow: hidden; /* Hide scrollbars caused by particles */
+        }
+        
+        /* This is the container for our particle background */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 0; /* Puts it in the background */
+        }
+
+        /* Our main content needs to be in front of the particles */
+        .container {
+            max-width: 700px;
+            padding: 20px;
+            z-index: 1; /* Puts it in the foreground */
+            position: relative;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            height: 100px; /* Give it a fixed height to prevent layout shifts */
+        }
+
+        /* Style the typing cursor from Typed.js */
+        .typed-cursor {
+            color: #00e5ff;
+            font-size: 3.5em;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #b3b3b3;
+        }
+
+        .link-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 25px;
+            border: 2px solid #00e5ff; /* A cool cyan border */
+            color: #00e5ff;
+            background-color: transparent;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: all 0.3s ease; /* Smooth transition for everything */
+        }
+
+        .link-button:hover {
+            background-color: #00e5ff;
+            color: #1a1a1a;
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- This div is the canvas for our animated particle background -->
+    <div id="particles-js"></div>
+
+    <div class="container">
+        <!-- The h1 now just contains a span that our script will target -->
+        <h1><span id="typed-text"></span></h1>
+        
+        <p>Data Engineer | Tech Enthusiast | Hardcore Gamer</p>
+        
+        <a href="https://github.com/FenrirCloud" class="link-button">Explore My GitHub Profile</a>
+    </div>
+
+    <!-- SCRIPT SECTION -->
+    <!-- We load the JavaScript libraries here, right before the body closes -->
+
+    <!-- 1. Typed.js for the typing effect -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+    <!-- 2. Particles.js for the background animation -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+    <!-- 3. Our custom script to configure and start the animations -->
+    <script>
+        // --- Typed.js Configuration ---
+        var options = {
+            strings: [
+                "Welcome.",
+                "I'm Fenrir.",
+                "I build with data.",
+                "I solve complex problems."
+            ],
+            typeSpeed: 50,  // Speed of typing
+            backSpeed: 25,  // Speed of deleting
+            backDelay: 1500, // Pause before deleting
+            startDelay: 500, // Pause before starting
+            loop: true,     // Loop the animation
+            showCursor: true,
+            cursorChar: '_',
+        };
+        var typed = new Typed('#typed-text', options);
+
+        // --- Particles.js Configuration ---
+        particlesJS.load('particles-js', 'assets/particles.json', function() {
+            console.log('callback - particles.js config loaded');
+        });
+
+        // We can define the particles config directly here instead of a separate file
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle"
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false
+                },
+                "size": {
+                    "value": 3,
+                    "random": true
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
+</body>
+</html>
