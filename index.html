@@ -3,206 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fenrir's Digital Hub</title>
+    <title>Fenrir's Digital Terminal</title>
     <style>
-        /* This is our CSS for styling */
+        /* CSS for our new look */
         body {
-            background-color: #1a1a1a;
+            background-color: #000; /* Pure black for the Matrix effect */
             color: #f0f0f0;
-            font-family: 'Consolas', 'Monaco', monospace; /* A more techy font */
+            font-family: 'Courier New', Courier, monospace; /* Classic terminal font */
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
             text-align: center;
-            overflow: hidden; /* Hide scrollbars caused by particles */
+            overflow: hidden;
         }
-        
-        /* This is the container for our particle background */
-        #particles-js {
+
+        /* The canvas for our Matrix background */
+        #matrix-canvas {
             position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0; /* Puts it in the background */
+            z-index: 0;
         }
 
-        /* Our main content needs to be in front of the particles */
+        /* The main content container, needs to be on top of the canvas */
         .container {
-            max-width: 700px;
-            padding: 20px;
-            z-index: 1; /* Puts it in the foreground */
+            z-index: 1;
             position: relative;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background to make text readable */
+            padding: 40px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 71, 0.3);
         }
 
-        h1 {
+        /* Container for the animated headline */
+        .headline {
             font-size: 3.5em;
-            margin-bottom: 10px;
-            height: 100px; /* Give it a fixed height to prevent layout shifts */
+            font-weight: bold;
+            height: 100px; /* Prevents layout shift */
+            margin-bottom: 20px;
         }
 
-        /* Style the typing cursor from Typed.js */
-        .typed-cursor {
-            color: #00e5ff;
-            font-size: 3.5em;
+        /* Each word is a span that we will animate */
+        .headline span {
+            opacity: 0; /* Start invisible */
+            display: inline-block;
+            transform: translateY(20px); /* Start slightly lower */
+            /* Link to our animation */
+            animation: fadeIn 0.8s forwards;
+        }
+        
+        /* This is where the magic happens: Staggered animation delays */
+        .headline span:nth-child(1) { animation-delay: 0.5s; }
+        .headline span:nth-child(2) { animation-delay: 0.7s; }
+        .headline span:nth-child(3) { animation-delay: 0.9s; }
+        .headline span:nth-child(4) { animation-delay: 1.1s; }
+
+        /* The Keyframe animation for the fade-in effect */
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         p {
             font-size: 1.2em;
-            color: #b3b3b3;
+            color: #aaa;
+            letter-spacing: 2px; /* Adds to the terminal feel */
         }
 
         .link-button {
             display: inline-block;
             margin-top: 30px;
             padding: 12px 25px;
-            border: 2px solid #00e5ff; /* A cool cyan border */
-            color: #00e5ff;
+            border: 2px solid #00ff47; /* Bright green border */
+            color: #00ff47;
             background-color: transparent;
             text-decoration: none;
             border-radius: 5px;
             font-weight: bold;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            transition: all 0.3s ease; /* Smooth transition for everything */
+            transition: all 0.3s ease;
         }
 
         .link-button:hover {
-            background-color: #00e5ff;
-            color: #1a1a1a;
-            box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+            background-color: #00ff47;
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 255, 71, 0.5);
             transform: translateY(-3px);
         }
     </style>
 </head>
 <body>
 
-    <!-- This div is the canvas for our animated particle background -->
-    <div id="particles-js"></div>
+    <!-- The canvas for our Matrix background -->
+    <canvas id="matrix-canvas"></canvas>
 
     <div class="container">
-        <!-- The h1 now just contains a span that our script will target -->
-        <h1><span id="typed-text"></span></h1>
+        <!-- Each word is in its own span for the staggered animation -->
+        <div class="headline">
+            <span>I</span>
+            <span>build</span>
+            <span>with</span>
+            <span>data.</span>
+        </div>
         
         <p>Data Engineer | Tech Enthusiast | Hardcore Gamer</p>
         
         <a href="https://github.com/FenrirCloud" class="link-button">Explore My GitHub Profile</a>
     </div>
 
-    <!-- SCRIPT SECTION -->
-    <!-- We load the JavaScript libraries here, right before the body closes -->
-
-    <!-- 1. Typed.js for the typing effect -->
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-
-    <!-- 2. Particles.js for the background animation -->
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-
-    <!-- 3. Our custom script to configure and start the animations -->
+    <!-- Our custom JavaScript for the Matrix effect -->
     <script>
-        // --- Typed.js Configuration ---
-        var options = {
-            strings: [
-                "Welcome.",
-                "I'm Fenrir.",
-                "I build with data.",
-                "I solve complex problems."
-            ],
-            typeSpeed: 50,  // Speed of typing
-            backSpeed: 25,  // Speed of deleting
-            backDelay: 1500, // Pause before deleting
-            startDelay: 500, // Pause before starting
-            loop: true,     // Loop the animation
-            showCursor: true,
-            cursorChar: '_',
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Using Katakana characters for the Matrix rain, which is classic
+        const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const nums = '0123456789';
+        const alphabet = katakana + latin + nums;
+
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+
+        const rainDrops = [];
+        for (let x = 0; x < columns; x++) {
+            rainDrops[x] = 1;
+        }
+
+        const draw = () => {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00ff47'; // Green text
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < rainDrops.length; i++) {
+                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+                if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    rainDrops[i] = 0;
+                }
+                rainDrops[i]++;
+            }
         };
-        var typed = new Typed('#typed-text', options);
 
-        // --- Particles.js Configuration ---
-        particlesJS.load('particles-js', 'assets/particles.json', function() {
-            console.log('callback - particles.js config loaded');
-        });
+        setInterval(draw, 30);
 
-        // We can define the particles config directly here instead of a separate file
-        particlesJS('particles-js', {
-            "particles": {
-                "number": {
-                    "value": 80,
-                    "density": {
-                        "enable": true,
-                        "value_area": 800
-                    }
-                },
-                "color": {
-                    "value": "#ffffff"
-                },
-                "shape": {
-                    "type": "circle"
-                },
-                "opacity": {
-                    "value": 0.5,
-                    "random": false
-                },
-                "size": {
-                    "value": 3,
-                    "random": true
-                },
-                "line_linked": {
-                    "enable": true,
-                    "distance": 150,
-                    "color": "#ffffff",
-                    "opacity": 0.4,
-                    "width": 1
-                },
-                "move": {
-                    "enable": true,
-                    "speed": 2,
-                    "direction": "none",
-                    "random": false,
-                    "straight": false,
-                    "out_mode": "out",
-                    "bounce": false
-                }
-            },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": {
-                    "onhover": {
-                        "enable": true,
-                        "mode": "grab"
-                    },
-                    "onclick": {
-                        "enable": true,
-                        "mode": "push"
-                    },
-                    "resize": true
-                },
-                "modes": {
-                    "grab": {
-                        "distance": 140,
-                        "line_linked": {
-                            "opacity": 1
-                        }
-                    },
-                    "bubble": {
-                        "distance": 400,
-                        "size": 40,
-                        "duration": 2,
-                        "opacity": 8,
-                        "speed": 3
-                    },
-                    "repulse": {
-                        "distance": 200,
-                        "duration": 0.4
-                    },
-                    "push": {
-                        "particles_nb": 4
-                    },
-                    "remove": {
-                        "particles_nb": 2
-                    }
-                }
-            },
-            "retina_detect": true
+        // Adjust canvas size if window is resized
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            // You might need to re-initialize columns and rainDrops here for a perfect resize
         });
     </script>
 </body>
