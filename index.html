@@ -27,25 +27,17 @@
             z-index: 0;
         }
 
-        /* --- STYLING THE UPGRADED BOX --- */
         .container {
             z-index: 1;
             position: relative;
-            
-            /* The "Glassmorphism" Effect */
-            background-color: rgba(255, 255, 255, 0.4); /* Made it less opaque to see the blur */
-            backdrop-filter: blur(8px); /* This is the magic for the frosted glass effect */
-            -webkit-backdrop-filter: blur(8px); /* For Safari compatibility */
-
+            background-color: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             padding: 40px 50px;
             border-radius: 10px;
-            
-            /* The border will now use the pulsing glow animation */
             border: 2px solid rgba(0, 0, 0, 0.2);
-
-            /* The "Grand Entrance" animation */
             animation: fadeInBox 1s ease-out forwards, borderGlow 4s infinite linear 1s;
-            opacity: 0; /* Start invisible for the animation */
+            opacity: 0;
         }
 
         .headline {
@@ -62,13 +54,11 @@
             animation: fadeInText 0.8s forwards;
         }
         
-        /* Staggered delays now start later to let the box appear first */
         .headline span:nth-child(1) { animation-delay: 1.0s; }
         .headline span:nth-child(2) { animation-delay: 1.2s; }
         .headline span:nth-child(3) { animation-delay: 1.4s; }
         .headline span:nth-child(4) { animation-delay: 1.6s; }
 
-        /* --- THE NEW ANIMATIONS --- */
         @keyframes fadeInText {
             to {
                 opacity: 1;
@@ -91,7 +81,6 @@
             0%, 100% { border-color: rgba(0, 0, 0, 0.2); box-shadow: 0 0 5px rgba(0,0,0,0.1); }
             50% { border-color: rgba(0, 0, 0, 0.6); box-shadow: 0 0 20px rgba(0,0,0,0.2); }
         }
-
 
         p {
             font-size: 1.2em;
@@ -118,6 +107,27 @@
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
             transform: translateY(-3px);
         }
+
+        /* --- MOBILE RESPONSIVE STYLES --- */
+        /* This block applies only when the screen is 768px wide or less */
+        @media (max-width: 768px) {
+            .headline {
+                font-size: 2.2em; /* Make the main title smaller */
+                height: 80px; /* Adjust height to match new font size */
+            }
+
+            p {
+                font-size: 1em; /* Make the subtitle smaller */
+            }
+
+            .container {
+                /* Reduce padding to give more space on small screens */
+                padding: 30px 25px; 
+                /* Make the box slightly less wide */
+                width: 85%;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -141,7 +151,6 @@
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
 
-        // --- HIGH-DPI / RETINA DISPLAY FIX ---
         const dpr = window.devicePixelRatio || 1;
         const rect = canvas.getBoundingClientRect();
         canvas.width = rect.width * dpr;
@@ -149,7 +158,6 @@
         ctx.scale(dpr, dpr);
         canvas.style.width = `${rect.width}px`;
         canvas.style.height = `${rect.height}px`;
-        // --- END OF FIX ---
 
         const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
         const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
