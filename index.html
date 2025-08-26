@@ -5,11 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fenrir's Digital Terminal</title>
     <style>
-        /* CSS for our new inverted look */
         body {
-            /* CHANGED: Whitish-grey background */
-            background-color: #f5f5f5; 
-            /* CHANGED: Dark text for the main content */
+            background-color: #f5f5f5;
             color: #111;
             font-family: 'Courier New', Courier, monospace;
             display: flex;
@@ -30,15 +27,25 @@
             z-index: 0;
         }
 
+        /* --- STYLING THE UPGRADED BOX --- */
         .container {
             z-index: 1;
             position: relative;
-            /* CHANGED: Semi-transparent white background for readability */
-            background-color: rgba(255, 255, 255, 0.6); 
-            padding: 40px;
+            
+            /* The "Glassmorphism" Effect */
+            background-color: rgba(255, 255, 255, 0.4); /* Made it less opaque to see the blur */
+            backdrop-filter: blur(8px); /* This is the magic for the frosted glass effect */
+            -webkit-backdrop-filter: blur(8px); /* For Safari compatibility */
+
+            padding: 40px 50px;
             border-radius: 10px;
-            /* CHANGED: Subtle dark border */
-            border: 1px solid rgba(0, 0, 0, 0.2); 
+            
+            /* The border will now use the pulsing glow animation */
+            border: 2px solid rgba(0, 0, 0, 0.2);
+
+            /* The "Grand Entrance" animation */
+            animation: fadeInBox 1s ease-out forwards, borderGlow 4s infinite linear 1s;
+            opacity: 0; /* Start invisible for the animation */
         }
 
         .headline {
@@ -52,25 +59,43 @@
             opacity: 0;
             display: inline-block;
             transform: translateY(20px);
-            animation: fadeIn 0.8s forwards;
+            animation: fadeInText 0.8s forwards;
         }
         
-        .headline span:nth-child(1) { animation-delay: 0.5s; }
-        .headline span:nth-child(2) { animation-delay: 0.7s; }
-        .headline span:nth-child(3) { animation-delay: 0.9s; }
-        .headline span:nth-child(4) { animation-delay: 1.1s; }
+        /* Staggered delays now start later to let the box appear first */
+        .headline span:nth-child(1) { animation-delay: 1.0s; }
+        .headline span:nth-child(2) { animation-delay: 1.2s; }
+        .headline span:nth-child(3) { animation-delay: 1.4s; }
+        .headline span:nth-child(4) { animation-delay: 1.6s; }
 
-        @keyframes fadeIn {
+        /* --- THE NEW ANIMATIONS --- */
+        @keyframes fadeInText {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
+        
+        @keyframes fadeInBox {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { border-color: rgba(0, 0, 0, 0.2); box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+            50% { border-color: rgba(0, 0, 0, 0.6); box-shadow: 0 0 20px rgba(0,0,0,0.2); }
+        }
+
 
         p {
             font-size: 1.2em;
-            /* CHANGED: Darker grey for the subtitle */
-            color: #444; 
+            color: #444;
             letter-spacing: 2px;
         }
 
@@ -78,9 +103,7 @@
             display: inline-block;
             margin-top: 30px;
             padding: 12px 25px;
-            /* CHANGED: Black border */
-            border: 2px solid #000; 
-            /* CHANGED: Black text */
+            border: 2px solid #000;
             color: #000;
             background-color: transparent;
             text-decoration: none;
@@ -90,9 +113,8 @@
         }
 
         .link-button:hover {
-            /* CHANGED: Hover state is now a black background with light text */
             background-color: #000;
-            color: #f5f5f5; 
+            color: #f5f5f5;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
             transform: translateY(-3px);
         }
@@ -119,8 +141,15 @@
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        // --- HIGH-DPI / RETINA DISPLAY FIX ---
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        ctx.scale(dpr, dpr);
+        canvas.style.width = `${rect.width}px`;
+        canvas.style.height = `${rect.height}px`;
+        // --- END OF FIX ---
 
         const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
         const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -136,14 +165,10 @@
         }
 
         const draw = () => {
-            // *** THE KEY CHANGE FOR THE FADING TRACE ***
-            // Instead of a semi-transparent black, we use a semi-transparent
-            // version of our light background color. This "washes out" the old text.
             ctx.fillStyle = 'rgba(245, 245, 245, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // CHANGED: The rain text is now black
-            ctx.fillStyle = '#000'; 
+            ctx.fillStyle = '#000';
             ctx.font = fontSize + 'px monospace';
 
             for (let i = 0; i < rainDrops.length; i++) {
@@ -158,11 +183,6 @@
         };
 
         setInterval(draw, 30);
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
     </script>
 </body>
 </html>
