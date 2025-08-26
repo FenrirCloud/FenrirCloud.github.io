@@ -40,14 +40,13 @@
             opacity: 0;
         }
         
-        /* --- NEW: Styling for the Welcome/User line --- */
         .user-greeting {
             font-size: 1.5em;
             color: #555;
-            margin-bottom: 25px; /* Adds space above the main headline */
-            opacity: 0; /* Starts invisible for the animation */
+            margin-bottom: 25px; 
+            opacity: 0; 
             animation: fadeInText 0.8s forwards;
-            animation-delay: 0.5s; /* Appears shortly after the box */
+            animation-delay: 0.5s; 
         }
         
         .cursor {
@@ -64,7 +63,7 @@
             font-size: 3.5em;
             font-weight: bold;
             height: 100px;
-            margin: 0; /* Adjusted margin */
+            margin: 0; 
         }
 
         .headline span {
@@ -93,7 +92,6 @@
             50% { border-color: rgba(0, 0, 0, 0.6); box-shadow: 0 0 20px rgba(0,0,0,0.2); }
         }
         
-        /* --- NEW: Animation for the blinking cursor --- */
         @keyframes blink {
             from, to { background-color: transparent; }
             50% { background-color: #555; }
@@ -140,8 +138,7 @@
     <canvas id="matrix-canvas"></canvas>
 
     <div class="container">
-        <!-- NEW: The "Welcome, Fenrir" line with a blinking cursor -->
-        <p class="user-greeting">Welcome, Fenrir<span class="cursor"></span></p>
+        <p class="user-greeting">Welcome, I'm Fenrir<span class="cursor"></span></p>
 
         <div class="headline">
             <span>I</span>
