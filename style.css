@@ -98,6 +98,7 @@ p {
     transform: translateY(-3px);
 }
 
+/* --- Keyframe Animations --- */
 
 @keyframes fadeInText {
     to { opacity: 1; transform: translateY(0); }
@@ -118,6 +119,8 @@ p {
     50% { background-color: #555; }
 }
 
+/* --- Media Queries for Responsiveness --- */
+
 @media (max-width: 768px) {
     .user-greeting { font-size: 1.2em; }
     .headline { font-size: 2.2em; height: 80px; }
@@ -125,72 +128,60 @@ p {
     .container { padding: 30px 25px; width: 85%; }
 }
 
+/* --- NEW: Corrected Pixel Art Styles & Animations --- */
+
 .pixel-art-container {
-    margin-top: 40px;
+    margin-top: 35px;
     display: flex;
     justify-content: center;
+    padding-bottom: 10px; /* Give it some breathing room */
 }
 
 .pixel-art {
     width: 10px;
     height: 10px;
-    background: transparent; 
+    background: #8d8d8d; /* Base pixel color (person's shirt) */
+    
+    /* Define pixel art properties using CSS variables for clean animations */
+    --screen-color: #55aaff;
+    --hand-x-offset: 10px;
+
+    /* The entire pixel art is drawn with one box-shadow property */
     box-shadow: 
-        /* Hair */
-        0 0 #8d8d8d, 10px 0 #8d8d8d,
-
-        /* Head */
-        0 10px #ffc0cb, 10px 10px #ffc0cb,
-
-        /* Body/Shirt */
-        -10px 20px #4a4a4a, 0 20px #4a4a4a, 10px 20px #4a4a4a, 
-        0 30px #4a4a4a, 10px 30px #4a4a4a,
+        /* Person */
+        0px -20px #4a4a4a, 10px -20px #4a4a4a, /* Hair */
+        0px -10px #ffc0cb, 10px -10px #ffc0cb, /* Head */
+        -10px 0px #8d8d8d, 10px 0px #8d8d8d,   /* Shoulders */
+        0px 10px #8d8d8d,                     /* Torso */
+        var(--hand-x-offset) 10px #ffc0cb,    /* Hand (animated) */
 
         /* Desk */
-        -30px 40px #6b4f3a, -20px 40px #6b4f3a, -10px 40px #6b4f3a, 0px 40px #6b4f3a, 
-        10px 40px #6b4f3a, 20px 40px #6b4f3a, 30px 40px #6b4f3a, 40px 40px #6b4f3a, 50px 40px #6b4f3a,
+        -30px 20px #6b4f3a, -20px 20px #6b4f3a, -10px 20px #6b4f3a, 0px 20px #6b4f3a, 
+        10px 20px #6b4f3a, 20px 20px #6b4f3a, 30px 20px #6b4f3a, 50px 20px #6b4f3a,
 
-        /* PC Monitor Frame */
-        30px 10px #333, 40px 10px #333, 50px 10px #333,
-        30px 20px #333, 50px 20px #333,
-        30px 30px #333, 40px 30px #333, 50px 30px #333,
+        /* Monitor */
+        30px -10px #333, 40px -10px #333, 50px -10px #333, /* Top frame */
+        30px 0px #333, 50px 0px #333,                     /* Side frame */
+        30px 10px #333, 40px 10px #333, 50px 10px #333, /* Bottom frame */
+        40px 0px var(--screen-color),                     /* Screen (animated) */
+        
+        /* Monitor Stand (drawn last to be on top of the desk) */
+        40px 20px #222;
 
-        /* PC Monitor Screen */
-        40px 20px #55aaff,
-
-        /* Monitor Stand */
-        40px 40px #222;
-    animation: typing 1.5s infinite steps(1, end), screenGlow 3s infinite linear;
+    /* Apply the animations */
+    animation: typing 1s infinite steps(1, end), screen-glow 3s infinite linear;
 }
 
+/* Animation that moves the hand */
 @keyframes typing {
-    0%, 100% {
-        transform: translateY(0); /* Hand at rest */
-    }
     50% {
-        transform: translateY(-2px); /* Hand moves up slightly for typing */
+        --hand-x-offset: 20px; /* Move hand variable to the right */
     }
 }
 
-@keyframes screenGlow {
-    0%, 100% {
-        box-shadow: 
-            0 0 #8d8d8d, 10px 0 #8d8d8d,
-            0 10px #ffc0cb, 10px 10px #ffc0cb,
-            -10px 20px #4a4a4a, 0 20px #4a4a4a, 10px 20px #4a4a4a, 0 30px #4a4a4a, 10px 30px #4a4a4a,
-            -30px 40px #6b4f3a, -20px 40px #6b4f3a, -10px 40px #6b4f3a, 0px 40px #6b4f3a, 10px 40px #6b4f3a, 20px 40px #6b4f3a, 30px 40px #6b4f3a, 40px 40px #6b4f3a, 50px 40px #6b4f3a,
-            30px 10px #333, 40px 10px #333, 50px 10px #333, 30px 20px #333, 50px 20px #333, 30px 30px #333, 40px 30px #333, 50px 30px #333,
-            40px 20px #55aaff, /* Normal screen color */
-            40px 40px #222;
-    }
+/* Animation that makes the screen glow */
+@keyframes screen-glow {
     50% {
-        box-shadow: 
-            0 0 #8d8d8d, 10px 0 #8d8d8d,
-            0 10px #ffc0cb, 10px 10px #ffc0cb,
-            -10px 20px #4a4a4a, 0 20px #4a4a4a, 10px 20px #4a4a4a, 0 30px #4a4a4a, 10px 30px #4a4a4a,
-            -30px 40px #6b4f3a, -20px 40px #6b4f3a, -10px 40px #6b4f3a, 0px 40px #6b4f3a, 10px 40px #6b4f3a, 20px 40px #6b4f3a, 30px 40px #6b4f3a, 40px 40px #6b4f3a, 50px 40px #6b4f3a,
-            30px 10px #333, 40px 10px #333, 50px 10px #333, 30px 20px #333, 50px 20px #333, 30px 30px #333, 40px 30px #333, 50px 30px #333,
-            40px 20px #87cefa, /* Brighter screen color for glow */
-            40px 40px #222;
+        --screen-color: #87cefa; /* Change screen color variable to a lighter blue */
     }
 }
