@@ -3,38 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fenrir's Digital Terminal</title>
+    <title>Socials | Fenrir's Digital Terminal</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <canvas id="matrix-canvas"></canvas>
 
     <div class="container">
-        <p class="user-greeting">Welcome! I'm Raad!<span class="cursor"></span></p>
+        <p class="user-greeting">Socials<span class="cursor"></span></p>
 
         <div class="headline">
-            <span>I</span>
-            <span>build</span>
-            <span>with</span>
-            <span>data.</span>
+            <span>Find</span>
+            <span>me</span>
+            <span>online.</span>
         </div>
         
-        <p>Data Engineer | Tech Enthusiast | Hardcore Gamer</p>
         
-        <div class="button-container">
-            <a href="contact.html" class="link-button contact-button">Contact Me</a>
-            <a href="https://github.com/FenrirCloud" class="link-button">Explore My GitHub Profile</a>
-            <a href="Raad_Kamal_Shoumen_CV.pdf" target="_blank" rel="noopener" class="link-button cv-button">View CV </a>
-            <a href="socials.html" class="link-button socials-button">Socials</a>
+        <div class="button-container vertical">
+            <a href="https://www.linkedin.com/in/raad-shoumenn-172178185/" target="_blank" rel="noopener" class="link-button">LinkedIn</a>
+
+            <a href="https://discord.com/users/299948176717119488" target="_blank" rel="noopener" class="link-button">Discord (C-note)</a>
+
+            <a href="https://steamcommunity.com/profiles/76561198093294032/" target="_blank" rel="noopener" class="link-button">Steam</a>
+
+            <a href="index.html" class="link-button back-button">Back to Home</a>
         </div>
-        
     </div>
 
     <script>
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
-
         const dpr = window.devicePixelRatio || 1;
         const rect = canvas.getBoundingClientRect();
         canvas.width = rect.width * dpr;
