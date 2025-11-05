@@ -5,10 +5,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
+    padding: 0;
     text-align: center;
     overflow: hidden;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 #matrix-canvas {
@@ -31,6 +34,10 @@ body {
     border: 2px solid rgba(0, 0, 0, 0.2);
     animation: fadeInBox 1s ease-out forwards, borderGlow 4s infinite linear 1s;
     opacity: 0;
+    margin: 0 auto;
+    max-width: 90%;
+    width: auto;
+    box-sizing: border-box;
 }
 
 .user-greeting {
