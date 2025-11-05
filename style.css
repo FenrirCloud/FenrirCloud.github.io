@@ -98,7 +98,6 @@ p {
     transform: translateY(-3px);
 }
 
-/* --- Keyframe Animations --- */
 
 @keyframes fadeInText {
     to { opacity: 1; transform: translateY(0); }
@@ -119,7 +118,6 @@ p {
     50% { background-color: #555; }
 }
 
-/* --- Media Queries for Responsiveness --- */
 
 @media (max-width: 768px) {
     .user-greeting { font-size: 1.2em; }
@@ -128,7 +126,6 @@ p {
     .container { padding: 30px 25px; width: 85%; }
 }
 
-/* --- NEW: Corrected Pixel Art Styles & Animations --- */
 
 .mouse-shadow-container {
     margin-top: 35px;
@@ -179,7 +176,6 @@ p {
     animation: shadowPulse 3s ease-in-out infinite;
 }
 
-/* Mouse buttons */
 .mouse-shadow > div {
     position: absolute;
     top: 0;
@@ -229,7 +225,6 @@ p {
     }
 }
 
-/* Button container styles (vertical layout) */
 .button-container {
     display: flex;
     flex-direction: column;
@@ -239,7 +234,6 @@ p {
     width: 100%;
 }
 
-/* Updated button styles */
 .link-button {
     display: inline-block;
     padding: 12px 25px;
@@ -257,7 +251,7 @@ p {
 }
 
 .link-button:hover {
-    background-color: #000;
+    background-color: #171a21;
     color: #f5f5f5;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     transform: translateX(6px);
@@ -266,7 +260,7 @@ p {
 .link-button.steam-button {
     border-color: #171a21;
     color: #171a21;
-    order: 3; /* ensure it appears last if ordering is used */
+    order: 3; 
 }
 
 .link-button.steam-button:hover {
@@ -274,26 +268,59 @@ p {
     color: #f5f5f5;
 }
 
+.link-button.cv-button {
+    border-color: #171a21; 
+    color: #171a21;
+}
+
+.link-button.cv-button:hover {
+    background-color: #171a21;
+    color: #f5f5f5;
+}
+
+.link-button.socials-button {
+    border-color: #171a21; 
+    color: #171a21;
+}
+.link-button.socials-button:hover {
+    background-color: #171a21;
+    color: #fff;
+}
+
+
+.discord-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.discord-button .copy-hint {
+    display: block;
+    font-size: 11px;
+    opacity: 0.8;
+    margin-left: 6px;
+}
+
 .link-button.contact-button {
-    border-color: #2c3e50;
-    color: #2c3e50;
-    order: 1; /* ensure it appears first if ordering is used */
+    border-color: #171a21;
+    color: #171a21;
+    order: 1; 
 }
 
 .link-button.contact-button:hover {
-    background-color: #2c3e50;
+    background-color: #171a21;
     color: #f5f5f5;
 }
 
 .phone-button {
     cursor: default;
-    border-color: #000000;
-    color: #2c312e;
+    border-color: #171a21;
+    color: #171a21;
 }
 
 .phone-button:hover {
-    background-color: #2c312e;
-    color: #fff;
+    background-color: #171a21;
+    color: #f5f5f5;
 }
 
 .phone-number {
@@ -303,12 +330,12 @@ p {
 
 .link-button.back-button {
     margin-top: 20px;
-    border-color: #666;
-    color: #666;
-    order: 4; /* Ensures it appears last */
+    border-color: #171a21;
+    color: #171a21;
+    order: 4; 
 }
 
 .link-button.back-button:hover {
-    background-color: #666;
+    background-color: #171a21;
     color: #f5f5f5;
 }
